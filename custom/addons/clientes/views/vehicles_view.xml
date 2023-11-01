@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        
+     <record id="view_client_vehicle_vist_form" model="ir.ui.view">
+      <field name="name">view.client.vehicle.vist.form</field>
+      <field name="model">client_vehicle.model_client</field>
+      <field name="arch" type='xml'>
+        <form>
+          <sheet>
+            <group name="group_top" string='Vehiculo'>
+              <group>
+                <field name="owner_vehicle_client_id" />
+                <field name="patented_vehicle" />
+                <field name="brand_vehicle" />
+                <field name="model_vehicle"/>
+                <field name="year_vehicle" />
+              </group>
+              <group>
+                <field name="gnc" widget="boolean" options="{'no_open': True}"/>
+                <field name="wafer_gas" attrs="{'invisible': [('gnc', '=', False)]}">
+                    <tree>
+                      <field name="wafer_expiration"/>
+                    </tree>
+                    <form>
+                      <sheet>
+                        <field name="wafer_expiration" />
+                      </sheet>
+                    </form>
+                </field>
+                <field name="equipament" attrs="{'invisible': [('gnc', '=', False)]}"/>
+                <field name="brand_equipament" attrs="{'invisible': [('gnc', '=', False)]}"/>
+              </group>
+            </group>
+            <group name="service_vehicles" string="Servicios">
+              <field name="service_vehicle_id" nolabel="1" widget='many2many'>
+                <form>
+                  <sheet>
+                      <group string="Servicio del vehiculo">
+                        <group name="group_left">
+                            <field name="date_time_service"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="service_performed" />
+                        </group>
+                      </group>
+                      <group name="description_service">
+                          <field name="description_service" />
+                      </group>
+                  </sheet>
+               </form>
+               <tree>
+                  <field name="date_time_service"/>
+                  <field name="service_performed" />
+                  <field name="description_service" />
+               </tree>
+              </field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_client_vehicle_vist_tree" model="ir.ui.view">
+      <field name="name">view.client.vehicle.vist.tree</field>
+      <field name="model">client_vehicle.model_client</field>
+      <field name="arch" type='xml'>
+        <tree>
+                
+                <field name="owner_vehicle_client_id" />
+                <field name="patented_vehicle" />
+                <field name="brand_vehicle" />
+                <field name="model_vehicle"/>
+                <field name="year_vehicle" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_vehicle" model="ir.actions.act_window">
+      <field name="name">Vehiculos</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">client_vehicle.model_client</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref='view_client_vehicle_vist_tree'/>
+    </record>
+    <record id="action_vist_form" model="ir.actions.act_window.view">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref='view_client_vehicle_vist_tree'/>
+      <field name="act_window_id" ref='action_vehicle'/>
+    </record>
+    <menuitem
+      id="client_vehicle_model_vehicle_menuitem"
+      name="Vehiculos"
+      action="action_vehicle"
+      sequence="10"
+      parent="client_model_menuitem"
+      />
+    </data>
+    
+
+</odoo>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+    <record id="vehicle_service_view_tree" model="ir.ui.view">
+        <field name="name">vehicle.service.view.tree</field>
+        <field name="model">vehicle_service.model_vehicle_client</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="vehicle_id" />
+                <field name="date_time_service"/>
+                <field name="service_performed" />
+                <field name="description_service" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="vehicle_service_view_form" model="ir.ui.view">
+        <field name="name">vehicle.service.view.form</field>
+        <field name="model">vehicle_service.model_vehicle_client</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group string="Servicio del vehiculo">
+                    <group name="group_left">
+                        <field name="vehicle_id" />
+                        <field name="date_time_service"/>
+                    </group>
+                    <group name="group_right">
+                        <field name="service_performed" />
+                    </group>
+                    </group>
+                    <group name="description_service">
+                        <field name="description_service" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        
+        <record id="action_service" model="ir.actions.act_window">
+            <field name="name">Servicios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vehicle_service.model_vehicle_client</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="vehicle_service_view_tree"/>
+        </record>
+
+        <record id="action_service_vist_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="vehicle_service_view_tree" />
+            <field name="act_window_id"  ref="action_service" />
+        </record>
+
+        <menuitem
+            id="vehicle_service_model_menuitem"
+            name="Servicios"
+            action="action_service"
+            parent="client_model_menuitem"
+            sequence="10"/>
+    
+    </data>
+    
+
+</odoo>

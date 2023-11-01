@@ -1,0 +1,123 @@
+<odoo>
+  <data>
+    <record id='view_client_vist_form' model='ir.ui.view'>
+      <field name='name'>view.client.vist.form</field>
+      <field name="model">client.model_client</field>
+      <field name="arch" type='xml'>
+          <form>
+            <sheet>
+              <group name='group_top' string="Cliente">
+                <group name='group_left'>
+                  <field name="name_client"/>
+                  <field name="last_name_client" help='Apelido del cliente'/>
+                </group>
+                <group name='group_right'>
+                  <field name="phone_client" help='Telefono del cliente'/>
+                  <field name="email_client" help='E-Mail del cliente' />
+                </group>
+              </group>
+              <separator/>
+                <notebook>
+                  <page string="Vehiculos">
+                    <field name="vehicle_id" nolabel="1" help="Vehiculos vinculados al cliente" options="{'no_create': True}">
+                      <tree>
+                        <field name="patented_vehicle" />
+                        <field name="brand_vehicle" />
+                        <field name="model_vehicle" />
+                        <field name="year_vehicle" />
+                      </tree>
+                      <form>
+                        <sheet>
+                          <group name="group_top" string='Vehiculo'>
+                            <group name="group_left">
+                              <field name="patented_vehicle" />
+                              <field name="brand_vehicle" />
+                              <field name="model_vehicle"/>
+                              <field name="year_vehicle" />
+                            </group>
+                            <group name="group_right">
+                              <field name="gnc" />
+                            </group>
+                          </group>
+                          <group name="service_vehicles" string="Servicios">
+                            <field name="service_vehicle_id" nolabel="1">
+                              <form>
+                                <sheet>
+                                    <group string="Servicio del vehiculo">
+                                      <group name="group_left">
+                                          <field name="date_time_service"/>
+                                      </group>
+                                      <group name="group_right">
+                                          <field name="service_performed" />
+                                      </group>
+                                    </group>
+                                    <group name="description_service">
+                                        <field name="description_service" />
+                                    </group>
+                                </sheet>
+                              </form>
+                              <tree>
+                                <field name="date_time_service"/>
+                                <field name="service_performed" />
+                                <field name="description_service" />
+                              </tree>  
+                            </field>
+                          </group>
+                        </sheet>
+                      </form>
+                    </field>
+                  </page>
+                  <page string="Información de trunos">
+                  <div class="oe_button_box" position="inside" >
+                   <button name="action_view_finalized" type="object" class="oe_stat_button" icon="fa-check">
+                      <field name="shift_finalized" widget='statinfo'/>      
+                    </button>
+                    <button name="action_view_cancelled" type="object" class="oe_stat_button" icon="fa-times">
+                      <field name="shift_cancelled" widget='statinfo'/>      
+                    </button>
+                  </div>
+                    <field name="shift_list" />
+                  </page>
+                </notebook>
+            </sheet>
+          </form>
+        </field>
+    </record>
+
+    <record id="view_client_vist_tree" model="ir.ui.view">
+      <field name="name">view.client.vist.tree</field>
+      <field name="model">client.model_client</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name_client"/>
+          <field name="last_name_client" />
+          <field name="phone_client" />
+          <field name="email_client" />
+          <field name="vehicle_id" />
+        </tree>
+      </field>
+    </record>
+   
+
+    <record id="action_client" model="ir.actions.act_window">
+      <field name="name">Clientes</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">client.model_client</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref='view_client_vist_tree'/>
+    </record>
+
+    <record id="action_vist_form" model="ir.actions.act_window.view">
+      <field name="view_mode">tree</field>
+      <field name="view_id" ref='view_client_vist_tree'/>
+      <field name="act_window_id" ref='action_client'/>
+    </record>
+
+    <menuitem
+      id="client_model_menuitem"
+      name="Clientes"
+      action="action_client"
+      sequence="10"/>
+  </data>
+</odoo>
+  

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="wafers_view_form" model="ir.ui.view">
+            <field name="name">wafers.view.form</field>
+            <field name="model">wafers.model_wafers</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                    <header>
+                        <field name="status_wafers" widget='statusbar' statusbar_visible="current,defeated,in_progress,on_hold,renewed" options="{'clickable':'1'}"/>
+                    </header>
+                        <group>
+                            <field name="wafers_of_the_month" />
+                             <field name="wafer_expiration" />
+                             <field name="number_tubes" />
+                             <field name="hydraulic_test" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wafers_view_tree" model="ir.ui.view">
+            <field name="name">wafers.view.tree</field>
+            <field name="model">wafers.model_wafers</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="wafers_of_the_month" />
+                    <field name="wafer_expiration" />
+                    <field name="status_wafers"   widget="badge" decoration-success="status_wafers == 'current'" decoration-danger="status_wafers == 'defeated'" decoration-warning="status_wafers == 'in_progress'" decoration-info="status_wafers == 'on_hold'"  decoration-muted="status_wafers == 'renewed'"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <record id="action_wafers" model="ir.actions.act_window">
+            <field name="name">Obleas</field>
+            <field name="res_model">wafers.model_wafers</field>
+            <field name="view_mode">tree,form</field>
+            <field name="name" ref="wafers_view_tree"></field>
+        </record>
+        <record id="action_wafers_view_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_wafers" />
+            <field name="view_id" ref="wafers_view_tree" />
+        </record>
+
+        <menuitem
+            id="wafers_name_menuitem"
+            name="Obleas"
+            action="action_wafers"
+            parent="client_model_menuitem"
+            sequence="10"/>
+    
+    </data>
+    
+
+</odoo>
